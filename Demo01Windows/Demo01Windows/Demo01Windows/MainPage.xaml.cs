@@ -25,15 +25,21 @@ namespace Demo01Windows
             }
 
             //Conver Values
-            var pesos = decimal.Parse(PesosEntry.Text);
+            decimal pesos = 0;
+            if (!decimal.TryParse(PesosEntry.Text, out pesos))
+            {
+                DisplayAlert("Error", "You must a value numeric in pesos...", "Accept");
+                return;
+            }
+
             var dollars = pesos / 2976.19048M; //Se utiliza la letra "M" formato currency para no usar conversiones
             var euros = pesos / 3504.19643M;
             var pounds = pesos / 3883.3333M;
 
             // Show results
-            DollarsEntry.Text = string.Format("{0:C2}", dollars);
-            PoundsEntry.Text = string.Format("{0:C2}", pounds);
-            EurosEntry.Text = string.Format("{0:C2}", euros);
+            DollarsEntry.Text = string.Format("${0:N2}", dollars);
+            PoundsEntry.Text = string.Format("£{0:N2}", pounds);
+            EurosEntry.Text = string.Format("€{0:N2}", euros);
         }
     }
 }
